@@ -4,3 +4,5 @@ def solution(arr):
         a += arr[i]
     answer = a / len(arr)
     return answer
+
+    # return sum(list) / len(list)
