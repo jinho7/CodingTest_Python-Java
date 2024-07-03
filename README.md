@@ -3,7 +3,7 @@
 ![Python Logo](https://www.python.org/static/community_logos/python-logo-generic.svg)
 
 ## 🎯 목표
-프로그래머스 코딩테스트 준비를 통한 알고리즘 실력 향상
+코딩테스트 준비 (방학 중에 Level 3까지 풀기)
 
 ## 📚 학습 계획
 - 하루에 프로그래머스 level 1 문제 5문제씩 풀기
@@ -30,7 +30,8 @@
 
 ## 🚀 목표 달성 현황
 - [ ] Level 1 완료
-- [ ] Level 2 시작
+- [ ] Level 2 완료
+- [ ] Level 3 완료
 
 ## 📌 참고 자료
 - [프로그래머스 코딩테스트 연습](https://programmers.co.kr/learn/challenges)
