@@ -12,3 +12,5 @@ def solution(left, right):
             sum -= i
             
     return sum
+
+# 바보.. 제곱수의 약수는 홀수개..
