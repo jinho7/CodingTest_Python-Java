@@ -7,3 +7,5 @@ def solution(s):
         return True
     except:
         return False
+    
+    # return s.isdigit() and len(s) in [4,6]
