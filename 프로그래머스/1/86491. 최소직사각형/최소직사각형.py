@@ -14,3 +14,13 @@ def solution(sizes):
         if item[1] > second_max:
             second_max = item[1]
     return first_max * second_max
+
+def solustion2(sizes):
+    row = 0
+    col = 0
+    for a, b in sizes:
+        if a < b:
+            a, b = b, a
+        row = max(row, a)
+        col = max(col, b)
+    return row * col
