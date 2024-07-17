@@ -4,6 +4,7 @@ def solution(dartResult):
     
     for i in dartResult:
         if i.isdigit():
+            # 숫자 두번 연속나오면 더해짐 (10고려)
             current_score += i
         elif i in ['S', 'D', 'T']:
             score = int(current_score)
