@@ -8,5 +8,6 @@ def solution(data, ext, val_ext, sort_by):
     for item in data:
         if item[dic[ext]] < val_ext:
             new_item.append(item)
-
+    
+    # sort_by에 해당하는 값 기준 -> 해당 인덱스 요소를 기준으로 정렬
     return sorted(new_item, key=lambda x: x[dic[sort_by]])
