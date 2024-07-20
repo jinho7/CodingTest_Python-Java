@@ -6,7 +6,6 @@ def solution(board, moves):
     basket = []
     count = 0
     
-    
     for item in moves:
         # 해당 열이 비어있지 않다면
         if board[item-1]:
