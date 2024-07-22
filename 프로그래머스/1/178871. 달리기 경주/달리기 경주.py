@@ -1,3 +1,6 @@
+# 쉽게 풀릴 때 부터 시간 초과 오류 뜰지 알았다...
+# dic 써서 풀려고 낑낑 댔는데 일단 gpt 도움을 좀 받음...
+
 def solution(players, callings):
     # 선수 이름을 키로, 순위를 값으로 하는 딕셔너리
     rank_dict = {player: rank for rank, player in enumerate(players)}
