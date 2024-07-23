@@ -1,4 +1,4 @@
-def my_solution(n):
+def solution(n):
     
     # 한 번에 K 칸을 앞으로 점프 -> K만큼 건전지 사용
     # (현재까지 온 거리) x 2 에 해당하는 위치로 순간이동 -> 건전지 사용 X (가능하면 순간이동)
@@ -8,12 +8,8 @@ def my_solution(n):
     # 어차피 반토막 이상 숫자면 x2 해도 넘어감
     count = 0
     while n != 0 :
-        if n % 2 == 0:
-            n /= 2
-        else:
-            n -= 1
-            count += 1
-            n /= 2
+        count += n % 2
+        n = n // 2
     
     return count
 
@@ -25,5 +21,5 @@ def my_solution(n):
 # 나머지 간격은 점프로 채워야 하므로, 결국 이진법에서 1의 개수만큼 점프가 필요합니다.
 # n의 이진 표현에서 1의 개수를 세는 것과 동일
 
-def solution(n):
-    return bin(n)[2:].count('1')
+def solution_a(n):
+    return bin(n).count('1')
