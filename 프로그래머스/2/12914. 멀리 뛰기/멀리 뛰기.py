@@ -21,7 +21,7 @@ def factorial(n):
 # n번째 칸에 도달하는 방법은 두 가지
 # 1) (n-1)번째 칸에서 1칸 뛰기
 # 2) (n-2)번째 칸에서 2칸 뛰기
-def solution(n):
+def x_solution(n):
     MOD = 1234567
     dp = [0] * (n + 1)
     dp[0] = 1
@@ -31,3 +31,11 @@ def solution(n):
         dp[i] = (dp[i-1] + dp[i-2]) % MOD
     
     return dp[n]
+
+# ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 피보나치 수열 구현하는 것도 파이썬 스럽게 더 진화 가능하네.ㅠ.ㅠ
+# 벽느끼는 알고리즘이 꽤 많다 이제
+def solution(n):
+    a, b = 0, 1
+    for i in range(1, n+1):
+        a, b = b, (a + b) % 1234567
+    return b
