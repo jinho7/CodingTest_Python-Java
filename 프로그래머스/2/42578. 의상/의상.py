@@ -5,7 +5,7 @@ def solution(clothes):
     for i in clothes:
         dictionary[i[1]].add(i[0])
     
-    # 착용 x 추가해주고, 착용 x만 있는 조합 -1
+    # 각 set에 착용x (none) 추가해주고, 착용x로만 조합된 케이스 -1
     for key in dictionary.keys():
         dictionary[key].add('none')
     
