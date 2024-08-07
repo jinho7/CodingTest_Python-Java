@@ -6,19 +6,15 @@ def solution(scoville, K):
     sum = 0
     max = len(scoville)-1
     
-    while not check_all_over(scoville, K):
+    while True:
+        first = heapq.heappop(scoville)
+        if first >= K:
+            break
         if sum == max:
             return -1
-        first = heapq.heappop(scoville)
         second = heapq.heappop(scoville)
         heapq.heappush(scoville, first + second * 2)
         sum += 1
         
     return sum
-
-def check_all_over(scoville, K):
-    for food in scoville:
-        if food < K:
-            return False
-    return True
     
