@@ -16,7 +16,6 @@ def solution(record):
             # Change도 처리 됨
             id_nick_dict[user_id] = nickname
             if action == 'Enter':
-                
                 chatroom_history.append([action, user_id])
         except ValueError:
             action, user_id = i.split(' ')
