@@ -1,17 +1,37 @@
+def split_filename(filename):
+    head = ''
+    number = ''
+    tail = ''
+    
+    # HEAD 추출
+    for char in filename:
+        if char.isdigit():
+            break
+        head += char
+    
+    # NUMBER 추출
+    number_start = len(head)
+    for i in range(number_start, len(filename)):
+        if not filename[i].isdigit():
+            break
+        number += filename[i]
+        if len(number) == 5:  # NUMBER는 최대 5자리
+            break
+    
+    # TAIL 추출
+    tail = filename[len(head) + len(number):]
+    
+    return head, number, tail
+
 def solution(files):
-    def split_file(file):
-        head = ""
-        number = ""
-        tail = ""
-        i = 0
-        while i < len(file) and not file[i].isdigit():
-            head += file[i]
-            i += 1
-        while i < len(file) and file[i].isdigit() and len(number) < 5:
-            number += file[i]
-            i += 1
-        return (head, number)
-
-    files.sort(key=lambda file: (split_file(file)[0].lower(), int(split_file(file)[1])))
-
-    return files
+    def sort_key(item):
+        index, filename = item
+        head, number, _ = split_filename(filename)
+        return (head.lower(), int(number) if number else 0, index)
+    
+    # 원래 인덱스와 함께 파일명 정렬
+    enumerated_files = list(enumerate(files))
+    sorted_files = sorted(enumerated_files, key=sort_key)
+    
+    # 정렬된 파일명만 반환
+    return [filename for _, filename in sorted_files]
