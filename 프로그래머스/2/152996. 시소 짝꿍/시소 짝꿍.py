@@ -1,29 +1,22 @@
-def solution(weights):
+def solution(weights: list):
     answer = 0
-    dic = { weight : 0 for weight in weights}
-    weights.sort()
     
-    for weight in weights:
-        if dic[weight]:
-            answer += dic[weight]
+    dict = {}
+
+    for i in weights:
+        if i in dict:
+            dict[i] += 1
+        else:
+            dict[i] = 1
             
-        dic[weight] += 1
+    for i in dict:
+        # 같은 무게가 두 개 이상 있을 경우
+        if dict[i] >= 2:
+            num = dict[i]
+            answer += (num * (num-1)) //2
             
-        if weight % 2 == 0:
-            try:
-                dic[(weight//2) * 3] += 1
-            except KeyError:
-                dic[(weight//2) * 3] = 1   
-                
-        if weight % 3 == 0:
-            try:
-                dic[(weight//3) * 4] += 1
-            except KeyError:
-                dic[(weight//3) * 4] = 1   
+        for m in [2, 2/3, 3/4]:
+            if i*m in dict:
+                answer += dict[i] * dict[i*m]
         
-        try:
-            dic[weight * 2] += 1
-        except KeyError:
-            dic[weight * 2] = 1   
-            
     return answer
