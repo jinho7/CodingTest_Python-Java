@@ -5,8 +5,6 @@ def solution(storey):
         i = storey % 10
         storey = storey // 10
 
-        print (storey, i)
-
         # 올림
         if i > 5 or (i == 5 and storey % 10 >= 5):
             storey += 1
