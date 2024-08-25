@@ -21,5 +21,3 @@ def solution(orders, course):
                         print(value)
                         result.append(key)
     return sorted(result)
-
-# from collections import defaultdict 암기
