@@ -10,15 +10,15 @@ def solution(N, road, K):
     
     # 다익스트라 알고리즘을 위한 거리 테이블 초기화
     # 노드 1부터 N까지 모든 노드에 대해 거리를 무한대로 초기화
-    distances = {node: 10**9 for node in range(1, N + 1)}
-    
-    # float('inf') 로 보통 초기화함
+    distances = {node: float('inf') for node in range(1, N + 1)}
     
     # 시작 노드를 1 은 0
     distances[1] = 0
 
     # 우선순위 큐 (거리, 노드) 튜플을 사용
     priority_queue = [(0, 1)]  # (거리, 노드)
+    
+    # print(graph)
     
     # 우선순위 큐 있을 때까지
     while priority_queue:
@@ -37,7 +37,7 @@ def solution(N, road, K):
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
                 heapq.heappush(priority_queue, (distance, neighbor))
-                print(priority_queue)
+            # print(priority_queue)
     # K 이하의 거리인 노드의 수를 계산
     reachable_nodes = sum(1 for distance in distances.values() if distance <= K)
     
