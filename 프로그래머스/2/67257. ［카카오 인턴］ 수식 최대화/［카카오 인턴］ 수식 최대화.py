@@ -1,60 +1,54 @@
-import math
 from itertools import permutations
-def solution(expression):
-    # 피연산자
-    operand = []
-    # 연산자
-    operator = []
-    
-    temp_operand = ""
-    for char in expression:
-        if char in "+-*":
-            # 연산자 처리
-            operator.append(char)
-            # 피연산자 처리
-            operand.append(int(temp_operand))
-            temp_operand = ""
-        else:
-            temp_operand += char
-            
-    # 마지막 피연산자 처리
-    operand.append(int(temp_operand))
-    print(operand, operator)
-    # [100, 200, 300, 500, 20] ['-', '*', '-', '+']
-    
-    # 연산자 우선 순위 종류
-    operator_priority = list(permutations(set(operator)))
-    print(operator_priority)
-    # [('+', '*', '-'), ('+', '-', '*'), ('*', '+', '-'), ('*', '-', '+'), ('-', '+', '*'), ('-', '*', '+')]
-    
-    def calculate(op1, op2, operator):
-        if operator == '+':
-            return op1 + op2
-        elif operator == '-':
-            return op1 - op2
-        elif operator == '*':
-            return op1 * op2
-    
 
-    max_result = 0
+def solution(expression):
     
-    # 각 우선순위에 대해 계산
-    for priority in operator_priority:
-        # 이거 또 실수함. 얕은 복사는 [:]
-        temp_operand = operand[:]
-        temp_operator = operator[:]
-        
-        for op in priority:
-            while op in temp_operator:
-                idx = temp_operator.index(op)
-                
-                # 해당 연산을 수행하고 피연산자와 연산자 리스트 갱신
-                result = calculate(temp_operand[idx], temp_operand[idx + 1], op)
-                temp_operand[idx] = result
-                del temp_operand[idx + 1]
-                del temp_operator[idx]
-        
-        # 결과의 절댓값을 구하고 최댓값 갱신
-        max_result = max(max_result, abs(temp_operand[0]))
+    # expression에 있는 모든 연산자, 피연산자 추출
+    operations = []
+    expression_to_list = []
+    temp = ""
+    for i in expression:
+        if i.isdigit():
+            temp += i
+        if not i.isdigit():
+            # 순열 조합 용으로 따로 연산자만
+            operations.append(i)
+            expression_to_list.append(temp)
+            expression_to_list.append(i)
+            temp = ""
+    expression_to_list.append(temp)
     
-    return max_result
+    # 해당 연산자들로 모든 순열 조합 완성
+    operations_priority = list(permutations(list(set(operations))))
+    print(operations_priority)
+    print(expression_to_list)
+    answer = []
+    
+    def calculate(op, x, y):
+        # 곱셈
+        if op == "*":
+            return str(int(x) * int(y))
+        # 덧셈
+        elif op == "+":
+            return str(int(x) + int(y))
+        # 빼기
+        elif op == "-":
+            return str(int(x) - int(y))
+
+    # 순열 조합에 따른 연산 수행
+    for op in operations_priority:
+        # 얕은 복사
+        temp_expression = expression_to_list[:]
+        
+        # 우선순위 순서대로 체크!
+        for current_op in op:
+            # temp_expression에 current_op가 없을 때까지 반복
+            while current_op in temp_expression:
+                idx = temp_expression.index(current_op)
+                result = calculate(temp_expression[idx], temp_expression[idx-1], temp_expression[idx+1])
+                temp_expression[idx-1:idx+2] = [result]
+        
+        # 계산된 결과를 answer 리스트에 추가
+        answer.append(abs(int(temp_expression[0])))
+    
+    # 가장 큰 절대값 반환
+    return max(answer)
