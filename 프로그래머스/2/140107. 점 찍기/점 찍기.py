@@ -1,10 +1,10 @@
-import math
-
 def solution(k, d):
     count = 0
-    for a in range(0, d // k + 1):  # a는 k의 배수로 0부터 d // k 까지
-        # b의 가능한 최대 값을 구함
-        max_b = math.isqrt(d**2 - (a * k)**2) // k
-        count += (max_b + 1)  # 가능한 b의 개수를 더함 (0부터 max_b까지)
-
+    for y in range(0, d + 1, k):  # d 값을 포함
+        # x 좌표 구하기
+        x = (d**2 - y**2)**0.5
+        
+        # x // k는 가능한 최대 x 좌표의 인덱스이므로, 여기에 +1을 추가해 포함
+        # ex) x=12, k=3 이면 가능한 x 좌표 -> 0,3,6,9,12 = 5개
+        count += int(x // k) + 1
     return count
