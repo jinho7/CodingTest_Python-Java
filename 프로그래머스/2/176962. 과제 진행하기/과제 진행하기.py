@@ -7,15 +7,16 @@ def solution(plans):
     
     paused_assign = []
     result = []
-    
+    print(plans)
     for i in range(len(plans) - 1):
         name, start, playtime = plans[i]
         next_start = plans[i+1][1]
-        
         end_time = start + playtime
+        
         if next_start >= end_time:
             result.append(name)
             free_time = next_start - end_time
+            
             while paused_assign and free_time > 0:
                 paused_name, remained_playtime = paused_assign.pop()
                 if remained_playtime <= free_time:
@@ -28,7 +29,7 @@ def solution(plans):
             real_playtime = next_start - start
             remained_playtime = playtime - real_playtime
             paused_assign.append([name, remained_playtime])
-    
+
     # 마지막 과제 처리
     name, start, playtime = plans[-1]
     result.append(name)
