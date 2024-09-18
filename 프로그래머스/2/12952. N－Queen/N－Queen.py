@@ -1,16 +1,37 @@
-# 백트레킹 주요 문제
 def solution(n):
-    def backtrack(row, cols, diag1, diag2):
-        if row == n:  # 모든 퀸을 놓았다면
-            return 1  # 유효한 방법 1개를 찾음
-        count = 0  # 유효한 경우의 수를 세는 변수
-        for col in range(n):  # 각 열에 대해 퀸을 놓을 수 있는지 확인
-            if col not in cols and (row - col) not in diag1 and (row + col) not in diag2:
-                # 열과 대각선에 퀸이 없다면
-                count += backtrack(row + 1, 
-                                   cols | {col}, 
-                                   diag1 | {row - col}, 
-                                   diag2 | {row + col})  # 다음 행으로 넘어가서 퀸 배치 시도
-        return count
-
-    return backtrack(0, set(), set(), set())  # 0행부터 시작, 처음에는 아무 퀸도 없음
+    
+    # 초기화
+    queens = []
+    answer = 0
+    
+    def backtrack(row):
+        nonlocal answer
+        
+        # 모든 퀸을 배치한 경우
+        if row == n:
+            answer += 1
+            return
+        
+        # 해당 행(row)의 각 열(col)에 퀸을 배치 시도
+        for col in range(n):
+            # 퀸을 놓을 수 있는지 검사
+            if is_safe(row, col):
+                # 퀸을 배치하고 다음 행으로 이동
+                queens.append((row, col))
+                backtrack(row + 1)
+                # 백트래킹: 다시 퀸을 제거하고 다른 위치 시도
+                queens.pop()
+        
+    
+    # 주어진 위치에 퀸을 놓을 수 있는지 확인하는 함수
+    def is_safe(row, col):
+        for r, c in queens:
+            # 같은 열에 있거나 대각선에 있는지 확인
+            if c == col or abs(row - r) == abs(col - c):
+                return False
+        return True
+    
+    # 백트래킹 시작: 첫 번째 행부터 시작
+    backtrack(0)
+    
+    return answer
