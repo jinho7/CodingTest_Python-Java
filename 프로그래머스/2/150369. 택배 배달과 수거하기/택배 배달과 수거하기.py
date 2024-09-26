@@ -9,6 +9,7 @@ def solution(cap, n, deliveries, pickups):
             deliveries_stack.append((i, deliveries[i]))
         if pickups[i] > 0:
             pickups_stack.append((i, pickups[i]))
+            
 
     while deliveries_stack or pickups_stack:
         # 가장 먼 거리 계산
