@@ -25,4 +25,4 @@ def solution(n):
             for j in range(4, i+1, 2):
                 dp[i] = (dp[i] + 2 * dp[i-j]) % MOD
 
-        return dp[n]
+    return dp[n]
