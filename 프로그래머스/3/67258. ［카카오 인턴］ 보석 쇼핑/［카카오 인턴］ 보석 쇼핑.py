@@ -14,6 +14,7 @@ def solution(gems):
 
     while e < len(gems):
         # 모든 종류의 보석을 포함하는지 확인
+        # print(gem_count)
         if len(gem_count) == total_types:
             # 현재 구간 길이가 더 짧으면 정답 갱신
             if (e - s) < (answer[1] - answer[0]):
