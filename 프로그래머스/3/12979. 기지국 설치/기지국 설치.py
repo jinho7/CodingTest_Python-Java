@@ -8,7 +8,7 @@ def solution(n, stations, w):
     if stations[0]-w > 1:
         unreachable.extend([1, stations[0]-w-1])
     
-    # 기지국 간 간격 처리
+    #  기지국 간 간격 처리
     for i in range(len(stations)-1):
         if stations[i]+w+1 < stations[i+1]-w:
             unreachable.extend([stations[i]+w+1, stations[i+1]-w-1])
