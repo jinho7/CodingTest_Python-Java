@@ -14,7 +14,7 @@ def solution(user_id, banned_id):
         # user 순회
         for user in user_id:
             check_user = []
-            # user 길이와 벤 당한 id의 길이 똑같으면 일단 후보로 둔다.
+            # user 길이와 벤 당한 id의 길이 똑같으면 일단 후보
             if len(user) == len(ban):
                 for j in range(len(user)):
                     # 그리고, 벤의 * 처리된 index 부분 -> user_id의 index를 *처리
