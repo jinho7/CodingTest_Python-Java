@@ -5,7 +5,6 @@ def solution(n, times):
     # 40 / 7 + 40 / 10 => 충분히 6명 처리 가능
     # ex2) 27분이 걸림
     # 27 / 7 + 27 / 10 -> 3명처리, 2명처리 -> 총 5명 밖에 처리 못함.
-    
     def check_can_pass(total):
         return sum(total // time for time in times) >= n
     
