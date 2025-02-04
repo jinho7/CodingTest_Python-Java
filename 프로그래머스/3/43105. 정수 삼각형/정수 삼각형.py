@@ -15,5 +15,5 @@ def solution(triangle):
             else:  # 중간에 있는 숫자들
                 dp[i][j] = max(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]
     
-    # 4. 마지막 행에서 최대값 찾기
+    # 4. 마지막 행에서 최대값 찾기  
     return max(dp[-1])
