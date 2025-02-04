@@ -11,14 +11,14 @@ def solution(genres, plays):
     for value in genres_plays.values():
         value.sort(key=lambda x: x[1], reverse=True)
     
-    # 1. 속한 노래가 많이 재생된 장르를 먼저 수록_ 위해서 정렬
+    # 속한 노래가 많이 재생된 장르를 먼저 수록_ 위해서 정렬
     genres_all_play_time_list = []
     for x, y in genres_all_play_time.items():
         genres_all_play_time_list.append([x, y])
     genres_all_play_time_list.sort(key=lambda x: x[1], reverse=True)
     
     answer = []
-    # 3. 장르 내에서 많이 재생된 노래를 먼저 수록
+    # 장르 내에서 많이 재생된 노래를 먼저 수록
     for genres, all_play_time in genres_all_play_time_list:
         play_time = genres_plays[genres]
         # 장르에 속한 곡이 하나라면, 하나의 곡만 선택
