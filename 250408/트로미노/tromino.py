@@ -15,14 +15,13 @@ for i in range(n-1):
 # 2. 세로3
 for i in range(n-2):
     for j in range(m):
-        temp_arr = [grid[i][j]+grid[i+1][j]+grid[i+2][j]]
-        temp_arr_sum = sum(temp_arr)
+        temp_arr_sum = grid[i][j]+grid[i+1][j]+grid[i+2][j]
         answer = max(answer, temp_arr_sum)
 
 # 3. 가로3
 for i in range(n):
     for j in range(m-2):
-        temp_arr_sum = sum(grid[i][j:j+1])
+        temp_arr_sum = sum(grid[i][j:j+3])
         answer = max(answer, temp_arr_sum)
 
 print(answer)
