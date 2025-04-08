@@ -7,7 +7,6 @@ for i in range(n-3+1):
     for j in range(n-3+1):
         temp_sum = 0
         for k in range(3):
-            temp_sum += sum(grid[k][j:j+3])
-        print(i,j, temp_sum)
+            temp_sum += sum(grid[i+k][j:j+3])
         answer = max(answer, temp_sum)
 print(answer)
