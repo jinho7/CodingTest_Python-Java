@@ -95,14 +95,14 @@ def destroy():
                         # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
                         # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
                         if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
-                            # 나무 일 때만 합산
+                            # 나무 일 때만 합산 - 제초제인 경우 제거
                             if arr[nx][ny] > 0:
                                 sum_tree += arr[nx][ny]
                         else:
                             condition = False
                 temp[i][j] = sum_tree
                 # print(f'[번식] {i}, {j}에 제초제를 뿌릴 경우: {sum_tree}')
-                # print(f'[제초] 각 칸에 제초제를 놓는 경우 박멸되는 나무의 수 : {temp}')
+    #print(f'[제초] 각 칸에 제초제를 놓는 경우 박멸되는 나무의 수 : {temp}')
 
     max_val = float('-inf')
     max_pos = (-1, -1)
@@ -137,9 +137,9 @@ def destroy():
             k_count += 1
             # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
             # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
-            if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
+            if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != -1:
                 # 나무 일 때만 합산
-                if arr[nx][ny] > 0:
+                if arr[nx][ny] >= 0:
                     arr[nx][ny] = -(2+c+1)
             else:
                 condition = False
@@ -181,7 +181,7 @@ for i in range(m):
     # for column in arr:
     #     print(column)
     arr = breed(arr)
-    # print("2. 번식 후 상태 :")
+    #print("2. 번식 후 상태 :")
     # for column in arr:
     #     print(column)
     max_val, arr = destroy()
