@@ -16,24 +16,19 @@ arr = [list(map(int, input().split())) for _ in range(n)]
 # 1) 성장
 # 인접한 네 개의 칸 중 나무가 있는 칸의 수만큼 성장 - 상하좌우 서로
 # (모든 나무 동시에)
-def grow(arr):
+def grow():
+    global arr
     # 이동하면서 전의 결과에 영향을 안받으려면 새로 만드는 수 밖에 없나
-    new_arr = [row[:] for row in arr]
     for i in range(n):
         for j in range(n):
             # 1) 4방향 다 뿌리고
             # 나무라면
             if arr[i][j] > 0:
-                # 범위 check and 옆에 나무가 있는가
-                if i - 1 >= 0 and arr[i - 1][j] > 0:
-                    new_arr[i - 1][j] += 1
-                if j - 1 >= 0 and arr[i][j - 1] > 0:
-                    new_arr[i][j - 1] += 1
-                if i + 1 < n and arr[i + 1][j] > 0:
-                    new_arr[i + 1][j] += 1
-                if j + 1 < n and arr[i][j + 1] > 0:
-                    new_arr[i][j + 1] += 1
-    return new_arr
+                for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    nx, ny = i + dx, j + dy
+                    if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] > 0:
+                        arr[nx][ny] += 1
+    return arr
 
 
 # 2) 번식
@@ -81,7 +76,8 @@ def breed(arr):
 # 2-2. 벽이 있는 경우 전파 X
 # c년 만큼 그 자리에 유효
 # 유효 끝나기 전에 다시 그 자리에 뿌려진다면 c년을 초기화 시켜야 한다.
-def destroy(arr, c, k):
+def destroy():
+    global arr, c, k
     # 각 칸에 제초제 뿌릴 경우 얼만큼의 나무를 제초할 수 있나 -> temp에 저장
     temp = [[0 for _ in range(n)] for _ in range(n)]
     for i in range(n):
@@ -155,7 +151,8 @@ def destroy(arr, c, k):
     return max_temp[0][1], arr
 
 
-def time_go(arr):
+def time_go():
+    global arr
     # 제초 남은 연도 체크
     for i in range(n):
         for j in range(n):
@@ -173,11 +170,17 @@ def time_go(arr):
 
 # 마지막에 세트를 m년 반복
 answer = 0
-for _ in range(m):
+for i in range(m):
+    # c년만큼 남아있고, c+1년이 될 때 사라진다.
+    if i >= 1:
+        arr = time_go()
+        # print("= 1년 처리 :")
+        # for column in arr:
+        #     print(column)
     # print("0. 초기 상태")
     # for column in arr:
     #     print(column)
-    arr = grow(arr)
+    arr = grow()
     # print("1. 성장 후 상태:")
     # for column in arr:
     #     print(column)
@@ -185,15 +188,11 @@ for _ in range(m):
     # print("2. 번식 후 상태 :")
     # for column in arr:
     #     print(column)
-    max_val, arr = destroy(arr, c, k)
+    max_val, arr = destroy()
     answer += max_val
     # print("3. 제초 후 상태 :")
     # for column in arr:
     #     print(column)
     # print(f'현재까지의 max 제초 : {answer}')
-    # 제초제를 뿌릴 위치 선정 후 -> 연도가 끝남 / 연도가 끝나고 -> 제초제 m 감소 시키기.
-    arr = time_go(arr)
-    # print("4. 1년 처리 :")
-    # for column in arr:
-    #     print(column)
+
 print(answer)
