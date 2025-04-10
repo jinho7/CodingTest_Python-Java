@@ -82,7 +82,7 @@ def destroy():
             # for 모든 곳에서 체크
             # for 4 가지 대각선 방향으로,
             # 범위 내 까지 옮겨 가며 체크
-            # 나무 라면, 합산 -> temp 좌표에 합산을 저장 -> 값이 max 좌표를 찾는다.
+            # 나무 라면, 합산 -> temp 좌표에 합산을 저장 -> 가장 큰 값의 시작 좌표를 찾는다.
             if arr[i][j] > 0:
                 sum_tree = arr[i][j]
                 for dx, dy in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
@@ -92,8 +92,8 @@ def destroy():
                     while condition:
                         nx, ny = nx + dx, ny + dy
                         k_count += 1
-                        # [중요 조건] : k칸 까지
-                        # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 X
+                        # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
+                        # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
                         if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
                             # 나무 일 때만 합산
                             if arr[nx][ny] > 0:
@@ -102,11 +102,12 @@ def destroy():
                             condition = False
                 temp[i][j] = sum_tree
                 # print(f'[번식] {i}, {j}에 제초제를 뿌릴 경우: {sum_tree}')
-    # print(f'[제초] 각 칸에 제초제를 놓는 경우 박멸되는 나무의 수 : {temp}')
+                # print(f'[제초] 각 칸에 제초제를 놓는 경우 박멸되는 나무의 수 : {temp}')
 
     max_val = float('-inf')
     max_pos = (-1, -1)
     max_temp = []
+    max_temp_coord = []
     # max 값 찾기
     # 만약 가장 많은 나무를 박멸시킬 곳이 여러 군데라면?
     # 1. 행이 작은 순 / -> 2. 열이 작은 순
@@ -133,12 +134,14 @@ def destroy():
         condition = True
         while condition:
             nx, ny = nx + dx, ny + dy
-            k += 1
-            if (0 <= nx < n and 0 <= ny < n):
-                # 나무 일 때만 박멸
+            k_count += 1
+            # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
+            # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
+            if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
+                # 나무 일 때만 합산
                 if arr[nx][ny] > 0:
-                    # 실제 map에 제초제 놓기
                     arr[nx][ny] = -(2+c+1)
+            else:
                 condition = False
 
     return max_temp[0][1], arr
