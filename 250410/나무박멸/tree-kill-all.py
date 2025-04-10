@@ -111,27 +111,20 @@ def destroy():
 
     max_val = float('-inf')
     max_pos = (-1, -1)
-    max_temp = []
-    max_temp_coord = []
     # max 값 찾기
     # 만약 가장 많은 나무를 박멸시킬 곳이 여러 군데라면?
-    # 1. 행이 작은 순 / -> 2. 열이 작은 순
+    # 1. 행이 작은 순 / -> 2. 열이 작은 순 = 자동으로 됨. 처음 잡히는 max. 같아도 더 크지 않으면 안바뀜
     for i in range(n):
         for j in range(n):
             if temp[i][j] > max_val:
                 max_val = temp[i][j]
                 max_pos = (i, j)
-                max_temp = [[max_pos, max_val]]
-            elif temp[i][j] == max_val:
-                max_val = temp[i][j]
-                max_pos = (i, j)
-                max_temp.append([max_pos, max_val])
     # print(f'[제초] max 후보 : {max_temp}, 최종 max 좌표 : {max_temp[0][0]}, 최종 max : {max_temp[0][1]}')
 
     # 제초제 실제로 놓기
     # 2가지 처리, 실제 map -> -(2+c+1)로 변경
     # 제초 map에 시간 쓰기
-    i, j = max_temp[0][0]
+    i, j = max_pos
     arr[i][j] = -(2+c+1)
     for dx, dy in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
         nx, ny = i, j
@@ -152,7 +145,7 @@ def destroy():
             else:
                 condition = False
 
-    return max_temp[0][1], arr
+    return max_val, arr
 
 
 def time_go():
