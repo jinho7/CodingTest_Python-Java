@@ -74,7 +74,7 @@ def breed(arr):
 def destroy():
     global arr, c, k
     # 각 칸에 제초제 뿌릴 경우 얼만큼의 나무를 제초할 수 있나 -> temp에 저장
-    temp = [[0 for _ in range(n)] for _ in range(n)]
+    temp = [[-1 for _ in range(n)] for _ in range(n)]
     for i in range(n):
         for j in range(n):
             # 1. 나무가 없는 칸에 뿌리는 경우 -> 박멸 X
@@ -94,13 +94,18 @@ def destroy():
                         k_count += 1
                         # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
                         # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
-                        if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
+                        if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != -1:
                             # 나무 일 때만 합산 - 제초제인 경우 제거
                             if arr[nx][ny] > 0:
                                 sum_tree += arr[nx][ny]
+                            elif arr[nx][ny] == 0:
+                                condition = False
                         else:
                             condition = False
                 temp[i][j] = sum_tree
+            elif arr[i][j] == 0:
+                temp[i][j] = 0
+            
                 # print(f'[번식] {i}, {j}에 제초제를 뿌릴 경우: {sum_tree}')
     #print(f'[제초] 각 칸에 제초제를 놓는 경우 박멸되는 나무의 수 : {temp}')
 
@@ -138,9 +143,12 @@ def destroy():
             # [중요 조건] : k칸 까지. k 넘어가면. 전파 끝
             # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 끝
             if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != -1:
-                # 나무 일 때만 합산
-                if arr[nx][ny] >= 0:
+                # 나무 일 때만 합산 - 제초제인 경우 제거
+                if arr[nx][ny] > 0:
                     arr[nx][ny] = -(2+c+1)
+                elif arr[nx][ny] == 0:
+                    arr[nx][ny] = -(2+c+1)
+                    condition = False
             else:
                 condition = False
 
