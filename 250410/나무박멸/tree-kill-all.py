@@ -9,7 +9,6 @@ n, m, k, c = map(int, input().split())
 # 즉, -7 이면 5년 남은 것.
 # 다만, 제초 시간 처리 할 때 -2 는 0으로 다시 치환해주는 작업 필요
 # -> 이러면 무조건 0이상인건 나무 라고 처리 가능
-
 arr = [list(map(int, input().split())) for _ in range(n)]
 
 
@@ -50,14 +49,10 @@ def breed(arr):
                 # => 그냥 0인 곳에 번식하면 되지 않나? [아직은 맞는거 같음 나중에 case 재검토]
                 # 번식 가능한 곳의 [좌표]를 먼저 담아둔다.
                 temp = []
-                if i - 1 >= 0 and arr[i - 1][j] == 0:
-                    temp.append([i - 1, j])
-                if j - 1 >= 0 and arr[i][j - 1] == 0:
-                    temp.append([i, j - 1])
-                if i + 1 < n and arr[i + 1][j] == 0:
-                    temp.append([i + 1, j])
-                if j + 1 < n and arr[i][j + 1] == 0:
-                    temp.append([i, j + 1])
+                for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    nx, ny = i + dx, j + dy
+                    if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == 0:
+                        temp.append([nx, ny])
                 if temp:
                     # print(f'[번식] 번식 가능 나무 : {arr[i][j]}, 번식 가능 칸 개수 : {len(temp)}')
                     # print(f'[번식] 번식 가능 한 좌표 {temp}, 각 칸 번식 나무 수 : {arr[i][j] // len(temp)}')
@@ -98,13 +93,11 @@ def destroy():
                         nx, ny = nx + dx, ny + dy
                         k_count += 1
                         # [중요 조건] : k칸 까지
-                        if (0 <= nx < n and 0 <= ny < n) and k_count <= k:
+                        # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 X
+                        if (0 <= nx < n and 0 <= ny < n) and k_count <= k and arr[nx][ny] != 0 and arr[nx][ny] != -1:
                             # 나무 일 때만 합산
                             if arr[nx][ny] > 0:
                                 sum_tree += arr[nx][ny]
-                            # [중요 조건] : 벽이나 빈칸을 만나면 거기서 끝. 전파 X
-                            elif arr[nx][ny] == 0 or arr[nx][ny] == -1:
-                                condition = False
                         else:
                             condition = False
                 temp[i][j] = sum_tree
