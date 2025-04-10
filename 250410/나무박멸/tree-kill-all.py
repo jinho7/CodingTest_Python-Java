@@ -82,8 +82,6 @@ def breed(arr):
 # c년 만큼 그 자리에 유효
 # 유효 끝나기 전에 다시 그 자리에 뿌려진다면 c년을 초기화 시켜야 한다.
 def destroy(arr, c, k):
-    # 반환할 arr
-    new_arr = [row[:] for row in arr]
     # 각 칸에 제초제 뿌릴 경우 얼만큼의 나무를 제초할 수 있나 -> temp에 저장
     temp = [[0 for _ in range(n)] for _ in range(n)]
     for i in range(n):
@@ -139,7 +137,7 @@ def destroy(arr, c, k):
     # 2가지 처리, 실제 map -> -(2+c+1)로 변경
     # 제초 map에 시간 쓰기
     i, j = max_temp[0][0]
-    new_arr[i][j] = -(2+c+1)
+    arr[i][j] = -(2+c+1)
     for dx, dy in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
         nx, ny = i, j
         k_count = 0
@@ -151,10 +149,10 @@ def destroy(arr, c, k):
                 # 나무 일 때만 박멸
                 if arr[nx][ny] > 0:
                     # 실제 map에 제초제 놓기
-                    new_arr[nx][ny] = -(2+c+1)
+                    arr[nx][ny] = -(2+c+1)
                 condition = False
 
-    return max_temp[0][1], new_arr
+    return max_temp[0][1], arr
 
 
 def time_go(arr):
