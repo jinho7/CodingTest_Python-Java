@@ -46,6 +46,9 @@ def check_max(arr):
                         coords = cood_groups
                         answer = [coords, (i, j), rotate_90_count]
                         #print("갱신")
+                    elif len(answer[0]) <= len(cood_groups) and rotate_90_count < answer[2]:
+                        coords = cood_groups
+                        answer = [coords, (i, j), rotate_90_count]
                 else:
                     arr = rotate_90(arr, i, j)
     return answer
@@ -112,7 +115,6 @@ for _ in range(k):
         for _ in range(rotate_90_count):
             arr = rotate_90(arr, x, y)
         arr = pop_it(arr, coords, m_list)
-
         # 3) 유물 연쇄 획득
         # 새로운 유물이 생성된 후에도 또 체크했을 때 3개 이상 연결될 수 있다.
         # 그럼 연쇄적으로 또 1~2가 반복된다.
@@ -123,5 +125,7 @@ for _ in range(k):
                 break
             arr = pop_it(arr, cood_groups, m_list)
         answer.append(turn_answer)
+    else:
+        break
 for i in range(len(answer)):
     print(answer[i], end = ' ')
