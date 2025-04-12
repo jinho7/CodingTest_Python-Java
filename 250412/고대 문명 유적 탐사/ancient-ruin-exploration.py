@@ -33,8 +33,8 @@ def rotate_90(arr, x, y):
 def check_max(arr):
     # max_num, (x, y), 반시계로 몇번 돌렸는가
     answer = [[], (0, 0), 0]
-    for i in range(3, 0, -1):
-        for j in range(3, 0, -1):
+    for i in range(1, 4,):
+        for j in range(1, 4):
             for rotate_90_count in range(1, 5):
                 if rotate_90_count < 4:
                     arr = rotate_90(arr, i, j)
@@ -56,7 +56,7 @@ def check_max(arr):
 # 2) 유물 1차 획득
 # 상하좌우 탐색 & 같은 숫자인 것들끼리 묶음이 된다. + 3개 이상 묶이면 사라짐 -> 숫자 상관 X, 개수 = 가치
 
-def dfs(x, y, value, group):
+def dfs(x, y, value, group, arr, visited):
     visited[x][y] = True
     group.append((x, y))
 
@@ -64,11 +64,10 @@ def dfs(x, y, value, group):
         nx, ny = x + dx, y + dy
         if 0 <= nx < 5 and 0 <= ny < 5:
             if not visited[nx][ny] and arr[nx][ny] == value:
-                dfs(nx, ny, value, group)
+                dfs(nx, ny, value, group, arr, visited)
 
 
 def find_groups(arr):
-    global visited
     visited = [[False for _ in range(5)] for _ in range(5)]
     all_groups = []
 
@@ -76,7 +75,7 @@ def find_groups(arr):
         for j in range(5):
             if not visited[i][j]:
                 group = []
-                dfs(i, j, arr[i][j], group)
+                dfs(i, j, arr[i][j], group, arr, visited)
                 if len(group) >= 3:
                     all_groups.extend(group)
 
@@ -110,11 +109,14 @@ answer = []
 for _ in range(k):
     turn_answer = 0
     coords, (x, y), rotate_90_count = check_max(arr)
+    #print(coords, (x, y), rotate_90_count)
     if coords:
         turn_answer += len(coords)
+        #print(turn_answer)
         for _ in range(rotate_90_count):
             arr = rotate_90(arr, x, y)
         arr = pop_it(arr, coords, m_list)
+        #print(arr)
         # 3) 유물 연쇄 획득
         # 새로운 유물이 생성된 후에도 또 체크했을 때 3개 이상 연결될 수 있다.
         # 그럼 연쇄적으로 또 1~2가 반복된다.
@@ -123,7 +125,9 @@ for _ in range(k):
             turn_answer += len(cood_groups)
             if not cood_groups:
                 break
+            #print("연쇄 가능", cood_groups)
             arr = pop_it(arr, cood_groups, m_list)
+            #print(arr)
         answer.append(turn_answer)
     else:
         break
