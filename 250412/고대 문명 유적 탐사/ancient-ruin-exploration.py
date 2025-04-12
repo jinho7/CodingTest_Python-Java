@@ -33,8 +33,8 @@ def rotate_90(arr, x, y):
 def check_max(arr):
     # max_num, (x, y), 반시계로 몇번 돌렸는가
     answer = [[], (0, 0), 0]
-    for i in range(1, 4,):
-        for j in range(1, 4):
+    for j in range(1, 4):
+        for i in range(1, 4):
             for rotate_90_count in range(1, 5):
                 if rotate_90_count < 4:
                     arr = rotate_90(arr, i, j)
@@ -109,14 +109,11 @@ answer = []
 for _ in range(k):
     turn_answer = 0
     coords, (x, y), rotate_90_count = check_max(arr)
-    #print(coords, (x, y), rotate_90_count)
     if coords:
         turn_answer += len(coords)
-        #print(turn_answer)
         for _ in range(rotate_90_count):
             arr = rotate_90(arr, x, y)
         arr = pop_it(arr, coords, m_list)
-        #print(arr)
         # 3) 유물 연쇄 획득
         # 새로운 유물이 생성된 후에도 또 체크했을 때 3개 이상 연결될 수 있다.
         # 그럼 연쇄적으로 또 1~2가 반복된다.
@@ -125,9 +122,7 @@ for _ in range(k):
             turn_answer += len(cood_groups)
             if not cood_groups:
                 break
-            #print("연쇄 가능", cood_groups)
             arr = pop_it(arr, cood_groups, m_list)
-            #print(arr)
         answer.append(turn_answer)
     else:
         break
