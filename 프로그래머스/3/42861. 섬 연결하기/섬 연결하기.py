@@ -5,7 +5,7 @@ def solution(n, costs):
     graph = [[0] *n for _ in range(n)]
     for s, e, c in costs:
         graph[s][e] = c
-        graph[e][s] = c
+        graph[e][s] = c 
          
     # (가중치, 시작 노드) 순! 최소힙 사용하기 위해
     heap = [ (0, 0) ]
