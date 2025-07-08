@@ -1,10 +1,10 @@
 # [level 1] 직사각형 별찍기 - 12969 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12969) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12969?language=java) 
 
 ### 성능 요약
 
-메모리: 7.52 MB, 시간: 11.73 ms
+메모리: 65.6 MB, 시간: 177.87 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 07월 08일 03:20:55
+2025년 07월 08일 15:12:47
 
 ### 문제 설명
 
@@ -36,10 +36,10 @@
 <h5>예시</h5>
 
 <p>입력</p>
-<div class="highlight"><pre class="codehilite"><code>5 3
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>5 3
 </code></pre></div>
 <p>출력</p>
-<div class="highlight"><pre class="codehilite"><code>*****
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>*****
 *****
 *****
 </code></pre></div>
