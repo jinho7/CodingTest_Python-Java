@@ -1,15 +1,20 @@
+import math
+
 def solution(brown, yellow):
-    # 최소 3x3
-    # 전체 격자 수 = brown + yellow = w * h
-    # 갈색 격자 수 = 2w + 2h - 4 (테두리)
-    # 노란색 격자 수 = (w-2) * (h-2)
-    total = brown + yellow
     
-    # h 3부터 돌자.
-    # 이것도 어차피 제곱근 까지만 돌면 됨 (h * w = total 이라)
-    for h in range(3, int(total**0.5) + 1):
-        # 나누어 떨어지면
-        if total % h == 0:
-            w = total / h
-            if (w-2) * (h-2) == yellow:
-                return [w, h]
+    # 1) brown + yellow = x * y
+    # 2) brown = 2(x-1) + 2(y-1)
+    # 3) yellow = (x-2) * (y-2)
+    
+    # S = a*b = brown + yellow 면적의 해 a,b는 유일
+    
+    s = brown + yellow
+    
+    # 3부터 체크, S/i가 정수 아니면 넘겨도됨
+    # 루트 S (정수) 까지 체크
+    for i in range(3, int(math.sqrt(s))+1) :
+        if s/i == s//i:
+            x, y = (s//i), i
+            if yellow == (x-2) * (y-2):
+                return [x, y]
+    return False
