@@ -1,5 +1,3 @@
-from itertools import permutations
-
 def solution(numbers):
     def is_prime(n):
         if n < 2:
@@ -9,14 +7,17 @@ def solution(numbers):
                 return False
         return True
 
-    # 모든 가능한 숫자 조합 생성
+    def generate_numbers(current, remaining):
+        if current:
+            num_set.add(int(current))
+        
+        for i in range(len(remaining)):
+            next_num = current + remaining[i]
+            next_remaining = remaining[:i] + remaining[i+1:]
+            generate_numbers(next_num, next_remaining)
+
     num_set = set()
-    for i in range(1, len(numbers) + 1):
-        perms = permutations(numbers, i)
-        for perm in perms:
-            num_set.add(int(''.join(perm)))
+    generate_numbers('', numbers)
 
-    # 소수 개수 세기
     prime_count = sum(1 for num in num_set if is_prime(num))
-
     return prime_count
