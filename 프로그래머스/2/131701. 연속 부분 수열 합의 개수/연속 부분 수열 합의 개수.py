@@ -1,13 +1,9 @@
 def solution(elements):
-    # 일단 mod를 써야겠다.
-    # 그냥 두배로 늘려..
+    n = len(elements)
+    circular_elements = elements * 2
     sum_set = set()
-    element = elements + elements
-    length = len(elements)
-    
-    for i in range(1, length+1):
-        #print("i", i)
-        for k in range(0, length):
-            #print("k", k, "k+i", k+i)
-            sum_set.add(sum(element[k: k+i]))
+    for i in range(1, n + 1):
+        # print(f"길이가 {i}인 연속 부분 수열")
+        for j in range(0, n):
+            sum_set.add(sum(circular_elements[j: j + i]))
     return len(sum_set)
