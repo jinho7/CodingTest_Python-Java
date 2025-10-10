@@ -1,16 +1,19 @@
+# dfs bfs 탐색 기초 다 잡기
 def solution(n, computers):
-    visited = [False] * n
-    count = 0
     
-    def dfs(node):
-        visited[node] = True
-        for next_node in range(n):
-            if computers[node][next_node] == 1 and not visited[next_node]:
-                dfs(next_node)
-                
+    def dfs(cur_node, visited):
+        visited.add(cur_node)
+        
+        for nxt_node in range(n):
+            if computers[cur_node][nxt_node] == 1 and nxt_node not in visited:
+                dfs(nxt_node, visited)
+    
+    visited = set()
+    answer = 0
+    
     for node in range(n):
-        if not visited[node]:
-            dfs(node)
-            count += 1  # 새로운 그래프 발견
-            
-    return count
+        if node not in visited:
+            dfs(node, visited)
+            answer += 1
+        
+    return answer
