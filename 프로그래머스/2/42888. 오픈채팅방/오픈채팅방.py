@@ -1,20 +1,24 @@
+from collections import defaultdict
+
 def solution(record):
+    
+    nickname_dict = defaultdict(str)
     answer = []
     
-    uid_nickname = {}
     for rec in record:
-        history = rec.split()
-        if history[0] == 'Enter' or history[0] == 'Change':
-            uid_nickname[history[1]] = history[2]
+        action = rec.split()[0]
+        if action == 'Enter' or action == 'Change':
+            _, uid, nickname = rec.split()
+            nickname_dict[uid] = nickname
+    # print(nickname_dict)
     
     for rec in record:
-        history = rec.split()
-        if history[0] == 'Enter':
-            nickname = uid_nickname[history[1]]
-            string = f'{nickname}님이 들어왔습니다.'
-            answer.append(string)
-        if history[0] == 'Leave':
-            nickname = uid_nickname[history[1]]
-            string = f'{nickname}님이 나갔습니다.'
-            answer.append(string)
+        action = rec.split()[0]
+        if action == 'Enter':
+            _, uid, nickname = rec.split()
+            answer.append(f'{nickname_dict[uid]}님이 들어왔습니다.')
+        elif action == 'Leave':
+            _, uid = rec.split()
+            answer.append(f'{nickname_dict[uid]}님이 나갔습니다.')
+    
     return answer
